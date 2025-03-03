@@ -11,7 +11,8 @@ private static Vector3[] _landmarks_NDC;
 
 # general tools
 
-* Application Manager 3.1 https://github.com/nischelwitzer/OCV-BodyPose-Tools/blob/main/scripts/ApplicationManager31.cs
+* Application Manager 3.2 https://github.com/nischelwitzer/OCV-BodyPose-Tools/blob/main/scripts/ApplicationManager32.cs
+  with p..pause and s..screenshot
 * Static Store https://github.com/nischelwitzer/OCV-BodyPose-Tools/blob/main/scripts/StaticStore.cs
 * Cam Switch https://github.com/nischelwitzer/OCV-face68-Nose-Mouth-BB/blob/main/scripts/CamSwitchStore.cs
 * Awake Kameras https://github.com/nischelwitzer/OCV-face68-Nose-Mouth-BB/blob/main/scripts/AwakeCamera.cs
