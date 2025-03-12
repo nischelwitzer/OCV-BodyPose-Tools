@@ -22,7 +22,7 @@ private static Vector3[] _landmarks_NDC;
 * https://github.com/nischelwitzer/OCV-face68-Nose-Mouth-BB/blob/main/scripts/LogoUnity.cs
 * https://github.com/nischelwitzer/OCV-face68-Nose-Mouth-BB/blob/main/scripts/LogoOpenCV.cs 
 
-# see also OpenCV Face Detectoin
+# see also OpenCV Face Detection
 
 Code examples:
 https://github.com/nischelwitzer/OCV-face68-Nose-Mouth-BB
