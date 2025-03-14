@@ -19,6 +19,16 @@ private static Vector3[] _landmarks_NDC;
 * Cam Switch https://github.com/nischelwitzer/OCV-face68-Nose-Mouth-BB/blob/main/scripts/CamSwitchStore.cs
 * Awake Kameras https://github.com/nischelwitzer/OCV-face68-Nose-Mouth-BB/blob/main/scripts/AwakeCamera.cs
 
+# Pose Estimation Info Layers
+
+Use this Files: https://github.com/nischelwitzer/OCV-BodyPose-Tools/tree/main/scripts/ShowLayers
+
+<img src="./pics/poseInfoLayers.png" widht="500">
+
+## Parameter Selection
+
+![HTML Basics](/pics/showPoseLayers.png)
+
 # OpenCV Draw Examples
 
 * https://github.com/nischelwitzer/OCV-face68-Nose-Mouth-BB/blob/main/scripts/LogoUnity.cs
