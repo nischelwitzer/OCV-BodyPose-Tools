@@ -23,9 +23,15 @@ private static Vector3[] _landmarks_NDC;
 
 Use this Files: https://github.com/nischelwitzer/OCV-BodyPose-Tools/tree/main/scripts/ShowLayers
 
+* OCVShowPoseLayers.cs select Parameters (put on CamRenderer)
+* MediaPipePoseEstimatorDMT.cs Dots and Numbers
+* PoseEstimationDrawDMT.cs Mask and Skeleton
+* MediaPipePersonDetectorDMT.cs (called from PoseEstimationDrawDMT) Rings and Boxes
+* StaticStore.cs for parameter passing
+
 <img src="./pics/poseInfoLayers.png" widht="500">
 
-## Parameter Selection
+### Parameter Selection
 
 ![HTML Basics](/pics/showPoseLayers.png)
 
