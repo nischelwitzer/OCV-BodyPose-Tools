@@ -2,13 +2,20 @@ using UnityEngine;
 
 public class OCVShowPoseLayers : MonoBehaviour
 {
+    [Tooltip("Show blue Mask around Body")]
     public bool showMask = true;
+    [Tooltip("Show Pose Skeleton")]
     public bool showSkeleton = true;
+    [Tooltip("Show red Dots")]
     public bool showDots = true;
+    [Tooltip("Show numbers for Landmarks")]
     public bool showNumbers = true;
 
+    [Tooltip("Show blue full body circle")]
     public bool showCircleFullBody = true;
+    [Tooltip("Show yellow upper body circle")]
     public bool showCircleUpperBody = true;
+    [Tooltip("Show green face Box")]
     public bool showBoxFace = true;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
