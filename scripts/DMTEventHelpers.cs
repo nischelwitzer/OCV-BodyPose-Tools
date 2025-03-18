@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 * 
 * example usage: can be used trigger actions on events
 * 
-* Author: FH JOANNEUM, IMA,´DMT, Nischelwitzer, 2025
+* Author: FH JOANNEUM, IMA,Â´DMT, Nischelwitzer, 2025
 * www.fh-joanneum.at & exhibits.fh-joanneum.at
 */
 
