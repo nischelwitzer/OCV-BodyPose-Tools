@@ -20,6 +20,7 @@ public class DMTEventHelpers : MonoBehaviour
         Debug.Log("##### DMTEventHelpers: Start");
     }
 
+    // ###############################################################################
     // change size on event
 
     public void HelperSize(float newSize) // 0.80 to 1.25
@@ -28,6 +29,7 @@ public class DMTEventHelpers : MonoBehaviour
         this.transform.localScale = newScaling;
     }
 
+    // ###############################################################################
     // switch scene on event
 
     public void HelperSceneManager(string whichScene)
@@ -41,6 +43,25 @@ public class DMTEventHelpers : MonoBehaviour
             Debug.LogError("DMTTriggerScene: no Scene Name specified!");
     }
 
+    // ###############################################################################
+    // Helpers for easy logging on events
+
+    public void HelperInfoLog(String logInfoText)
+    {
+        Debug.Log("##### HelperInfo: "+ logInfoText);
+    }
+    public void HelperInfoWarning(String logWarningText)
+    {
+        Debug.LogWarning("##### HelperWarning: " + logWarningText);
+    }
+    public void HelperInfoError(String logErrorText)
+    {
+        Debug.LogError("##### HelperError: " + logErrorText);
+    }
+    
+    // ###############################################################################
+    // change color by name
+        
     public enum ColorNames
     {
         Red     = 0xFF0000,
@@ -64,9 +85,7 @@ public class DMTEventHelpers : MonoBehaviour
         float b = (hex & 0xFF) / 255f;
         return new Color(r, g, b);
     }
-
-    // change color by name
-
+    
     public void HelperMaterialColor(string colorName)
     {
         // if (GetComponent<Image>() != null)
