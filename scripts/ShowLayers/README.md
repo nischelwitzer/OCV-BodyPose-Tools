@@ -45,3 +45,25 @@ if (DMT.StaticStore.ShowBoundingBoxLayer)
     Imgproc.line(image, new Point(poseBBMax.x, poseBBMin.y), new Point(poseBBMin.x, poseBBMax.y), new Scalar(255, 0, 0), 7);
 }
 ```
+
+## Calc NDC for OpenCV PoseEstimation
+
+```
+Vector3[] landmarks_NDC = new Vector3[landmarks_screen.Length];
+for (int i = 0; i < landmarks_screen.Length; i++)
+{
+    Vector3 screen = new Vector3(landmarks_screen[i].x, landmarks_screen[i].y, landmarks_screen[i].z);
+    Vector3 ndc;
+    ndc.x = (screen.x / image.width());
+    ndc.y = (screen.y / image.height());
+    ndc.z = screen.z;
+    landmarks_NDC[i] = ndc;
+}
+DMT.StaticStore.bodyPoseNDC = landmarks_NDC;
+
+float confidence = data.confidence;
+DMT.StaticStore.confidence = data.confidence;
+```
+
+
+
