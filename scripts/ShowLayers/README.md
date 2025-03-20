@@ -4,7 +4,7 @@
 
 Show different OCV Info Layers on Poses.
 
-![HTML Basics](./showPoseLayers.png)
+![HTML Basics](./ocvLayers.png)
 
 * OCVShowPoseLayers.cs put this on the GameObject: CamRenderer
 * Exchange:
@@ -12,3 +12,5 @@ Show different OCV Info Layers on Poses.
   * MediaPipePoseEstimatorDMT.cs
   * PoseEstimationDrawDMT.cs
   * and StaticStore.cs
+
+![HTML Basics](./showPoseLayers.png)
