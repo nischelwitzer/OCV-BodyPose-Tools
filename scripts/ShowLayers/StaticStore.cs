@@ -41,7 +41,8 @@ namespace DMT
 
         // PoseEstimationDrawDMT 
         public static bool showMaskLayer { get; set; } // line 277
-        public static bool showSkeletonLayer { get; set; }
+        // MediaPipePoseEstimatorDMT
+        public static bool showSkeletonLayer { get; set; } // line 540
 
         // MediaPipePoseEstimatorDMT
         public static bool showDotsLayer { get; set; } // line 600
