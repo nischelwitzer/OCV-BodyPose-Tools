@@ -465,11 +465,41 @@ namespace OpenCVForUnityExample.DnnModel
             // NIS
             // Transfer Data to StaticStore
             DMT.StaticStore.bodyPose = landmarks_screen;
-
             Vector3[] landmarks_world = data.landmarks_world;
             DMT.StaticStore.bodyPoseWorld = landmarks_world;
 
+            // NIS
+            // Screen Body Pose BoundingBox calculation
+
+            Point poseBBMin = new Point(9999, 9999);
+            Point poseBBMax = new Point(-9999, -9999);
+            for (int run = 0; run < landmarks_screen.Length; run++) // check all Points
+            {
+                Vector3 screen = new Vector3(landmarks_screen[run].x, landmarks_screen[run].y, landmarks_screen[run].z);
+                Point point = new Point(screen.x, screen.y);
+                if (point.x > poseBBMax.x) poseBBMax.x = point.x;
+                if (point.y > poseBBMax.y) poseBBMax.y = point.y;
+                if (point.x < poseBBMin.x) poseBBMin.x = point.x;
+                if (point.y < poseBBMin.y) poseBBMin.y = point.y;
+            }
+
+            DMT.StaticStore.myBoundingBox = new UnityEngine.Rect((float)poseBBMin.x, (float)poseBBMin.y, 
+                    (float)poseBBMax.x - (float)poseBBMin.x, (float)poseBBMax.y - (float)poseBBMin.y);
+            DMT.StaticStore.myBoundingBoxNDC = new UnityEngine.Rect(
+              (float)poseBBMin.x / image.width(), (float)poseBBMin.y / image.height(),
+              ((float)poseBBMax.x - (float)poseBBMin.x) / image.height(),
+              ((float)poseBBMax.y - (float)poseBBMin.y) / image.height());
+
+            // draw white bounding box
+            if (DMT.StaticStore.ShowBoundingBoxLayer)
+            {
+                Imgproc.rectangle(image, poseBBMin, poseBBMax, new Scalar(255, 255, 255), 10);
+                Imgproc.line(image, new Point(poseBBMin.x, poseBBMin.y), new Point(poseBBMax.x, poseBBMax.y), new Scalar(255, 0, 0), 7);
+                Imgproc.line(image, new Point(poseBBMax.x, poseBBMin.y), new Point(poseBBMin.x, poseBBMax.y), new Scalar(255, 0, 0), 7);
+            }
+
             // calc NDC from screen
+
             Vector3[] landmarks_NDC = new Vector3[landmarks_screen.Length];
             for (int i = 0; i < landmarks_screen.Length; i++)
             {
@@ -537,10 +567,10 @@ namespace OpenCVForUnityExample.DnnModel
             {
                 void _draw_by_presence(int idx1, int idx2)
                 {
-                    if (DMT.StaticStore.showSkeletonLayer)
+                    if (DMT.StaticStore.ShowSkeletonLayer)
                         if (landmarks[idx1].presence > 0.8 && landmarks[idx2].presence > 0.8)
                         {
-                            Imgproc.line(image, new Point(landmarks[idx1].x, landmarks[idx1].y), new Point(landmarks[idx2].x, landmarks[idx2].y), line_color, thickness);
+                            Imgproc.line(image, new Point(landmarks[idx1].x, landmarks[idx1].y), new Point(landmarks[idx2].x, landmarks[idx2].y), line_color, thickness * 4);
                         }
                 }
 
@@ -597,10 +627,10 @@ namespace OpenCVForUnityExample.DnnModel
                     {
                         if (landmarks[i].presence > 0.8)
                         {
-                            if (DMT.StaticStore.showDotsLayer)
+                            if (DMT.StaticStore.ShowDotsLayer)
                                 Imgproc.circle(image, new Point(landmarks[i].x, landmarks[i].y), 6, point_color, 3);
 
-                            if (DMT.StaticStore.showNumbersLayer)
+                            if (DMT.StaticStore.ShowNumbersLayer)
                             {
                                 Imgproc.putText(image, i.ToString(), new Point(landmarks[i].x + 1, landmarks[i].y + 1), Imgproc.FONT_HERSHEY_DUPLEX, 0.8, new Scalar(255, 255, 0, 255));
                                 Imgproc.putText(image, i.ToString(), new Point(landmarks[i].x, landmarks[i].y), Imgproc.FONT_HERSHEY_DUPLEX, 0.8, new Scalar(0, 255, 0, 255));
@@ -622,10 +652,11 @@ namespace OpenCVForUnityExample.DnnModel
             if (image.size() != mask.size() && mask.type() == CvType.CV_8UC1)
                 return;
 
-            Scalar color = new Scalar(0, 0, 255, 255);
+            // NIS
+            Scalar color = new Scalar(255, 0, 0, 255);
 
             Imgproc.Canny(mask, mask, 100, 200);
-            Mat kernel = Mat.ones(2, 2, CvType.CV_8UC1);// # expansion edge to 2 pixels
+            Mat kernel = Mat.ones(8, 8, CvType.CV_8UC1);// # expansion edge to 2 pixels
             Imgproc.dilate(mask, mask, kernel, new Point(), 1);
 
             if (colorMat == null)

@@ -23,36 +23,49 @@ namespace DMT
         private static double _leftAngle = 0.0f;
         private static double _rightAngle = 0.0f;
 
-        // PoseEstimationDrawDMT
-        private static bool showMask = true;
-        private static bool showSkeleton = true;
-
-        // MediaPipePoseEstimatorDMT
-        private static bool showDots = true;
-        private static bool showNumbers = false;
-
-        // call: PoseEstimationDrawDMT 276
-        // draw: MediaPipePersonDetectorDMT visualize 271
-        private static bool showBoxFace = false;
-        private static bool showCircleFullBody = false;
-        private static bool showCircleUpperBody = false;
+        private static UnityEngine.Rect _boundingBox = UnityEngine.Rect.zero;
+        private static UnityEngine.Rect _boundingBoxNDC = UnityEngine.Rect.zero;
 
         // =====================================================================
 
         // PoseEstimationDrawDMT 
-        public static bool showMaskLayer { get; set; } // line 277
         // MediaPipePoseEstimatorDMT
-        public static bool showSkeletonLayer { get; set; } // line 540
+        public static bool ShowMaskLayer { get; set; } // line 277
+        // MediaPipePoseEstimatorDMT
+        public static bool ShowSkeletonLayer { get; set; } // line 540
+        public static bool ShowBoundingBoxLayer { get; set; }
 
         // MediaPipePoseEstimatorDMT
-        public static bool showDotsLayer { get; set; } // line 600
-        public static bool showNumbersLayer { get; set; } // line 600
+        public static bool ShowDotsLayer { get; set; } // line 600
+        public static bool ShowNumbersLayer { get; set; } // line 600
 
         // MediaPipePersonDetectorDMT
-        public static bool showBoxFaceLayer { get; set; }
-        public static bool showCircleFullBodyLayer { get; set; } // line 300
-        public static bool showCircleUpperBodyLayer { get; set; }
+        // call: PoseEstimationDrawDMT 276
+        // draw: MediaPipePersonDetectorDMT visualize 271
+        public static bool ShowBoxFaceLayer { get; set; }
+        public static bool ShowCircleFullBodyLayer { get; set; } // line 300
+        public static bool ShowCircleUpperBodyLayer { get; set; }
+        public static bool ShowTextConfidenceLayer { get; set; }
 
+        public static UnityEngine.Rect myBoundingBox // main BoundingBoxes
+        {
+            get { return _boundingBox; }
+            set
+            {
+                UnityEngine.Rect gotData = value;
+                _boundingBox = gotData;
+            }
+        }
+
+        public static UnityEngine.Rect myBoundingBoxNDC // main BoundingBoxes
+        {
+            get { return _boundingBoxNDC; }
+            set
+            {
+                UnityEngine.Rect gotData = value;
+                _boundingBoxNDC = gotData;
+            }
+        }
 
         // =====================================================================
 

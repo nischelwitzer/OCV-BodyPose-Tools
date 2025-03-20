@@ -269,7 +269,8 @@ namespace OpenCVForUnityExample.DnnModel
         }
 
         public virtual void visualize(Mat image, Mat results, bool print_results = false, bool isRGB = false,
-            bool showBoxFace = false, bool showCircleFullBody = false, bool showCircleUpperBody = false)
+            bool showBoxFace = false, bool showCircleFullBody = false,
+            bool showCircleUpperBody = false, bool showTextConfidenceBody = false)
         {
             if (image.IsDisposed)
                 return;
@@ -302,7 +303,9 @@ namespace OpenCVForUnityExample.DnnModel
 
                 // NIS
                 // put score, blue
-                Imgproc.putText(image, score[0].ToString("F4"), new Point(face_box[0], face_box[1] + 12), Imgproc.FONT_HERSHEY_DUPLEX, 1.1, new Scalar(0, 0, 255, 255));
+                // DMT.StaticStore.showTextConfidenceLayer
+                if (showTextConfidenceBody)
+                    Imgproc.putText(image, score[0].ToString("F4"), new Point(face_box[0], face_box[1] + 12), Imgproc.FONT_HERSHEY_DUPLEX, 3.0, new Scalar(255, 255, 255, 255));
 
                 // draw "green" box
                 if (showBoxFace)

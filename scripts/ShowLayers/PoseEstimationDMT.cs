@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace OpenCVForUnityExample
 {
@@ -18,15 +19,13 @@ namespace OpenCVForUnityExample
     /// Referring to https://github.com/opencv/opencv_zoo/tree/main/models/pose_estimation_mediapipe
     /// </summary>
     [RequireComponent(typeof(MultiSource2MatHelper))]
-    public class PoseEstimationDrawDMT : MonoBehaviour
+    public class PoseEstimationDMT : MonoBehaviour
     {
-
-        public Renderer textureRenderer;
 
         /// <summary>
         /// The texture.
         /// </summary>
-        private Texture2D texture;
+        Texture2D texture;
 
         /// <summary>
         /// The multi source to mat helper.
@@ -42,8 +41,6 @@ namespace OpenCVForUnityExample
         /// The person detector.
         /// </summary>
         MediaPipePersonDetectorDMT personDetector;
-
-
 
         /// <summary>
         /// The pose estimator.
@@ -89,7 +86,7 @@ namespace OpenCVForUnityExample
             multiSource2MatHelper.outputColorFormat = Source2MatHelperColorFormat.RGBA;
 
             // Update GUI state
-
+            
             // Asynchronously retrieves the readable file path from the StreamingAssets directory.
             if (fpsMonitor != null)
                 fpsMonitor.consoleText = "Preparing file access...";
@@ -145,7 +142,7 @@ namespace OpenCVForUnityExample
 
             // Set the Texture2D as the main texture of the Renderer component attached to the game object
             // nis: Set the texture to the game object
-            textureRenderer.material.mainTexture = texture;
+            gameObject.GetComponent<Renderer>().material.mainTexture = texture;
 
             // Adjust the scale of the game object to match the dimensions of the texture
 
@@ -158,7 +155,7 @@ namespace OpenCVForUnityExample
             float height = rgbaMat.height();
             float widthScale = (float)Screen.width / width;
             float heightScale = (float)Screen.height / height;
-
+            
             // nis: turn off scaling
             /*
             if (widthScale < heightScale)
@@ -169,7 +166,7 @@ namespace OpenCVForUnityExample
             {
                 Camera.main.orthographicSize = height / 2;
             }
-            */
+            */ 
 
             if (fpsMonitor != null)
             {
@@ -241,7 +238,7 @@ namespace OpenCVForUnityExample
                     Mat persons = personDetector.infer(bgrMat);
 
                     //tm.stop();
-                    //Debug.Log("MediaPipePersonDetectorDMT Inference time (preprocess + infer + postprocess), ms: " + tm.getTimeMilli());
+                    //Debug.Log("MediaPipePersonDetector Inference time (preprocess + infer + postprocess), ms: " + tm.getTimeMilli());
 
                     List<Mat> poses = new List<Mat>();
                     List<Mat> masks = new List<Mat>();
@@ -270,28 +267,18 @@ namespace OpenCVForUnityExample
                     Imgproc.cvtColor(bgrMat, rgbaMat, Imgproc.COLOR_BGR2RGBA);
 
                     // nis: draw more
-                    // boxes, etc.
-                    // call to MediaPipePersonDetetorDMT
+                    // personDetector.visualize(rgbaMat, persons, false, true);
 
-                    personDetector.visualize(rgbaMat, persons, false, true, 
-                        DMT.StaticStore.ShowBoxFaceLayer, DMT.StaticStore.ShowCircleFullBodyLayer, 
-                        DMT.StaticStore.ShowCircleUpperBodyLayer, DMT.StaticStore.ShowTextConfidenceLayer);
+                    // show all masks 
+                    // foreach (var mask in masks)
+                    //     poseEstimator.visualize_mask(rgbaMat, mask, true);
 
-                    DMT.StaticStore.posesCounter = poses.Count;
-
-                    // NIS: show all masks 
-                    // BLUE mask around body form
-                    if (DMT.StaticStore.ShowMaskLayer)
-                        foreach (var mask in masks)
-                            poseEstimator.visualize_mask(rgbaMat, mask, true);
-
-                    // calc and show all poses
+                    // show all poses
                     // gree box & white pose
-                    foreach (Mat pose in poses)
-                    {
-                        poseEstimator.visualize(rgbaMat, pose, false, true); // nis: draw and info 
-                                                                             // 3: print result in console
-                    }
+
+                    foreach (var pose in poses)
+                        poseEstimator.visualize(rgbaMat, pose, false, true); // nis: draw and info
+
                 }
 
                 Utils.matToTexture2D(rgbaMat, texture);
