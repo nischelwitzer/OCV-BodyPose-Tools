@@ -4,7 +4,7 @@
 
 Show different OCV Info Layers on Poses.
 
-![HTML Basics](./boundingBox.png)
+![HTML Basics](./bbCenter.png)
 
 * OCVShowPoseLayers.cs put this on the GameObject: CamRenderer
 * Exchange:
@@ -65,5 +65,6 @@ float confidence = data.confidence;
 DMT.StaticStore.confidence = data.confidence;
 ```
 
+![HTML Basics](./boundingBox.png)
 
 
