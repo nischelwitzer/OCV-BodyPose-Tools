@@ -490,12 +490,16 @@ namespace OpenCVForUnityExample.DnnModel
               ((float)poseBBMax.x - (float)poseBBMin.x) / image.height(),
               ((float)poseBBMax.y - (float)poseBBMin.y) / image.height());
 
-            // draw white bounding box
+            // draw yellow bounding box
             if (DMT.StaticStore.ShowBoundingBoxLayer)
             {
-                Imgproc.rectangle(image, poseBBMin, poseBBMax, new Scalar(255, 255, 255), 10);
-                Imgproc.line(image, new Point(poseBBMin.x, poseBBMin.y), new Point(poseBBMax.x, poseBBMax.y), new Scalar(255, 0, 0), 7);
-                Imgproc.line(image, new Point(poseBBMax.x, poseBBMin.y), new Point(poseBBMin.x, poseBBMax.y), new Scalar(255, 0, 0), 7);
+                Imgproc.rectangle(image, poseBBMin, poseBBMax, new Scalar(255, 255, 0), 10);
+                Imgproc.line(image, new Point(poseBBMin.x, poseBBMin.y), new Point(poseBBMax.x, poseBBMax.y), new Scalar(255, 255, 128), 7);
+                Imgproc.line(image, new Point(poseBBMax.x, poseBBMin.y), new Point(poseBBMin.x, poseBBMax.y), new Scalar(255, 255, 128), 7);
+
+                // use data directly vom StaticStore
+                Imgproc.circle(image, new Point(DMT.StaticStore.BoundingBoxCenter.x, DMT.StaticStore.BoundingBoxCenter.y), 20, new Scalar(255, 255, 0), 15);
+
             }
 
             // calc NDC from screen

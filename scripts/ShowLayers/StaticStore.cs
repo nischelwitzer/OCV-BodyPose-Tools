@@ -47,6 +47,16 @@ namespace DMT
         public static bool ShowCircleUpperBodyLayer { get; set; }
         public static bool ShowTextConfidenceLayer { get; set; }
 
+        public static Vector2 BoundingBoxCenter // main BoundingBoxes
+        {
+            get { return new Vector2(_boundingBox.x + _boundingBox.width / 2, _boundingBox.y + _boundingBox.height / 2); }
+        }
+
+        public static Vector2 BoundingBoxCenterNDC // main BoundingBoxes
+        {
+            get { return new Vector2(_boundingBoxNDC.x + _boundingBoxNDC.width / 2, _boundingBoxNDC.y + _boundingBoxNDC.height / 2); }
+        }
+
         public static UnityEngine.Rect myBoundingBox // main BoundingBoxes
         {
             get { return _boundingBox; }
