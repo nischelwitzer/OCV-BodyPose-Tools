@@ -20,13 +20,49 @@ public class DMTEventHelpers : MonoBehaviour
         Debug.Log("##### DMTEventHelpers: Start");
     }
 
-    // ###############################################################################
     // change size on event
 
     public void HelperSize(float newSize) // 0.80 to 1.25
     {
         Vector3 newScaling = this.transform.localScale * newSize;
         this.transform.localScale = newScaling;
+    }
+
+    // ###############################################################################
+    // Helpers for easy logging on events
+
+    public void HelperInfoLog(String logInfoText)
+    {
+        Debug.Log("##### HelperInfo: " + logInfoText);
+    }
+    public void HelperInfoWarning(String logWarningText)
+    {
+        Debug.LogWarning("##### HelperWarning: " + logWarningText);
+    }
+    public void HelperInfoError(String logErrorText)
+    {
+        Debug.LogError("##### HelperError: " + logErrorText);
+    }
+
+    public void HelperInfoLogFloat(float gotFloatValue)
+    {
+        Debug.Log("##### HelperInfo Log(float): " + gotFloatValue);
+    }
+
+    // ###############################################################################
+
+    public void ChangeVolume(float mySliderValue)
+    {
+        AudioSource myAudioSource = GetComponent<AudioSource>();
+        if (myAudioSource != null)
+        {
+            myAudioSource.volume = (mySliderValue/100.0f);
+            Debug.Log("##### DMTEventHelpers: Volume changed to " + mySliderValue);
+        }
+        else
+        {
+            Debug.LogError("DMTEventHelpers: no AudioSource found!");
+        }
     }
 
     // ###############################################################################
@@ -43,25 +79,6 @@ public class DMTEventHelpers : MonoBehaviour
             Debug.LogError("DMTTriggerScene: no Scene Name specified!");
     }
 
-    // ###############################################################################
-    // Helpers for easy logging on events
-
-    public void HelperInfoLog(String logInfoText)
-    {
-        Debug.Log("##### HelperInfo: "+ logInfoText);
-    }
-    public void HelperInfoWarning(String logWarningText)
-    {
-        Debug.LogWarning("##### HelperWarning: " + logWarningText);
-    }
-    public void HelperInfoError(String logErrorText)
-    {
-        Debug.LogError("##### HelperError: " + logErrorText);
-    }
-    
-    // ###############################################################################
-    // change color by name
-        
     public enum ColorNames
     {
         Red     = 0xFF0000,
@@ -85,7 +102,9 @@ public class DMTEventHelpers : MonoBehaviour
         float b = (hex & 0xFF) / 255f;
         return new Color(r, g, b);
     }
-    
+
+    // change color by name
+
     public void HelperMaterialColor(string colorName)
     {
         // if (GetComponent<Image>() != null)
