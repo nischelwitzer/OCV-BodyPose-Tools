@@ -150,6 +150,8 @@ namespace DMT.Pose
             set
             {
                 _bodyPose_screen = value;
+
+                BodyPoseScreen2NDC();
                 FindBoundingBox();
                 ConvertBoundingBox2NDC();
 
@@ -182,10 +184,6 @@ namespace DMT.Pose
         public static Vector2[] bodyPoseNDC
         {
             get { return _landmarks_NDC; }
-            set
-            {
-                _landmarks_NDC = value;
-            }
         }
 
         public static int poseCounter // number of detected faces
@@ -254,9 +252,18 @@ namespace DMT.Pose
         // .....................................................................
         // =====================================================================
 
+        private static void BodyPoseScreen2NDC()
+        {
+            for (int run = 0; run < _bodyPose_screen.Length; run++) // check all Points
+            {
+                float xNDC = (float)_bodyPose_screen[run].X / (float)imgWidth;
+                float yNDC = 1.0f - ((float)_bodyPose_screen[run].Y / (float)imgHeight); // flip Y axis, because screen y=0 is top and NDC y=0 is bottom
+                _landmarks_NDC[run] = new Vector2(xNDC, yNDC);
+            }
+        }
+
         private static UnityEngine.Rect FindBoundingBox()
         {
-
             Point poseBBMin = new Point(9999, 9999);
             Point poseBBMax = new Point(-9999, -9999);
 
